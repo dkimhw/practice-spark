@@ -7,11 +7,12 @@ import codecs
 
 def loadMovieNames():
   movieNames = {}
-  with codecs.open("./ml-latest-small/ratings.csv", 'r', encoding="ISO-8859-1", errors='ignore') as f:
+  with codecs.open("./ml-latest-small/movies.csv", 'r', encoding="ISO-8859-1", errors='ignore') as f:
     for line in f:
-        fields = line.split(',')
-        if fields[0] not in ["userId", "movieId", "rating", "timestamp\r\n"]:
-          movieNames[int(fields[0])] = fields[1]
+      fields = line.split(',')
+      if fields[0] not in ["title", "movieId", "genres"]:
+        movieNames[int(fields[0])] = fields[1]
+        # print("fields: ", fields[0], fields[1])
   return movieNames
 
 spark = SparkSession.builder.appName("PopularMovies").getOrCreate()
