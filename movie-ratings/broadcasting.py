@@ -11,8 +11,11 @@ def loadMovieNames():
     for line in f:
       fields = line.split(',')
       if fields[0] not in ["title", "movieId", "genres"]:
-        movieNames[int(fields[0])] = fields[1]
-        # print("fields: ", fields[0], fields[1])
+        try:
+          movieNames[int(fields[0])] = fields[1]
+        except:
+          continue
+
   return movieNames
 
 spark = SparkSession.builder.appName("PopularMovies").getOrCreate()
